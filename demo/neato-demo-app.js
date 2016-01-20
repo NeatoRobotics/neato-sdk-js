@@ -6,21 +6,19 @@ var NeatoDemoApp = {
   },
 
   // robot state
-  connect: function() {
-    var self = this
-      , $serial = $("#serial")
-      , $secretKey = $("#secret_key");
+  connect: function(serial, secretKey) {
+    var self = this;
 
     this.guiDisableConnect();
 
     // initialize robot object
-    this.robot = new Neato.Robot($serial.val(), $secretKey.val(), {
+    this.robot = new Neato.Robot(serial, secretKey, {
       onConnected: function() {
         console.log(this.serial + " got connected");
       },
       onDisconnected: function(status, json) {
         console.log(this.serial + " got disconnected");
-        self.guiReset();
+        self.guiResetAll();
       },
       onStateChange: function() {
         console.log(this.serial + " got new state:", this.state);
@@ -35,12 +33,8 @@ var NeatoDemoApp = {
   },
 
   onStateChange: function() {
-    var $robotState = $("#robot_state");
-    // commands
     this.guiEnableRobotCommands();
-    // log
-    var prettyState = JSON.stringify(this.robot.state, null, 2);
-    $robotState.html(prettyState);
+    this.guiDisplayState();
   },
 
   getAvailableCommands: function() {
@@ -51,11 +45,49 @@ var NeatoDemoApp = {
     }
   },
 
+  // robot commands
+  startOrResume: function() {
+    var availableCommands = this.getAvailableCommands();
+    if (!availableCommands) { return; }
+
+    if (availableCommands.start) {
+      this.startHouseCleaning();
+    } else if (availableCommands.resume) {
+      this.resumeCleaning();
+    }
+  },
+
+  startHouseCleaning: function() {
+    this.robot.startCleaning({
+      category: 2,
+      mode: 1,
+      modifier: 1
+    });
+  },
+
+  pauseCleaning: function() {
+    this.robot.pauseCleaning();
+  },
+
+  resumeCleaning: function() {
+    this.robot.resumeCleaning();
+  },
+
+  stopCleaning: function() {
+    this.robot.stopCleaning();
+  },
+
+  sendToBase: function() {
+    this.robot.sendToBase();
+  },
+
   // GUI
   guiInitializeEvents: function() {
-    var self = this;
+    var self = this
+      , $serial = $("#serial")
+      , $secretKey = $("#secret_key");
 
-    $("#connect").click(function() { self.connect(); });
+    $("#connect").click(function() { self.connect($serial.val(), $secretKey.val()); });
     $("#disconnect").click(function() { self.disconnect(); });
 
     $("#cmd_start").click(function() { self.startOrResume(); });
@@ -106,51 +138,22 @@ var NeatoDemoApp = {
     $("#cmd_send_to_base").prop('disabled', true);
   },
 
-  guiReset: function() {
-    var $robotState = $("#robot_state");
+  guiDisplayState: function() {
+    var $robotState = $("#robot_state")
+      , prettyState = JSON.stringify(this.robot.state, null, 2);
 
+    $robotState.html(prettyState);
+  },
+
+  guiResetState: function() {
+    var $robotState = $("#robot_state");
+    $robotState.html("");
+  },
+
+  guiResetAll: function() {
+    this.guiResetState();
     this.guiDisableRobotCommands();
     this.guiEnableConnect();
-
-    $robotState.html("");
-
-    this.guiEnableConnect();
-  },
-
-  // robot commands
-  startOrResume: function() {
-    var availableCommands = this.getAvailableCommands();
-    if (!availableCommands) { return; }
-
-    if (availableCommands.start) {
-      this.startHouseCleaning();
-    } else if (availableCommands.resume) {
-      this.resumeCleaning();
-    }
-  },
-
-  startHouseCleaning: function() {
-    this.robot.startCleaning({
-      category: 2,
-      mode: 1,
-      modifier: 1
-    });
-  },
-
-  pauseCleaning: function() {
-    this.robot.pauseCleaning();
-  },
-
-  resumeCleaning: function() {
-    this.robot.resumeCleaning();
-  },
-
-  stopCleaning: function() {
-    this.robot.stopCleaning();
-  },
-
-  sendToBase: function() {
-    this.robot.sendToBase();
   }
 };
 
