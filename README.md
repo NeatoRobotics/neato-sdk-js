@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/NeatoRobotics/neato-sdk-js.svg?token=ByJZpJTVhxGJyseW4ZnD&branch=master)](https://travis-ci.com/NeatoRobotics/neato-sdk-js)
+
 # Neato SDK JS
 A javascript library to interact with Neato servers and robots via Ajax calls.
 
