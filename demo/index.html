@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Neato SDK Demo</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/hmac-sha256.js"></script>
+  <script src="../lib/neato-0.1.0.min.js"></script>
+  <script src="neato-demo-app.js"></script>
+</head>
+
+<body>
+<h1>Nucleo App Demo</h1>
+
+<div>
+  <h3>Robot Settings</h3>
+
+  <label for="serial">Serial</label>
+  <input id="serial" name="serial" type="text" size="25">
+  <label for="secret_key">Secret Key</label>
+  <input id="secret_key" type="text" size="40">
+
+  <input type="submit" id="connect" value="CONNECT">
+  <input type="submit" id="disconnect" value="DISCONNECT" disabled="disabled">
+</div>
+
+<div>
+  <input type="submit" id="cmd_start" value="&#9657;" disabled="disabled">
+  <input type="submit" id="cmd_pause" value="&#9707;" disabled="disabled">
+  <input type="submit" id="cmd_stop" value="&#9632;" disabled="disabled">
+  <input type="submit" id="cmd_send_to_base" value="&#8617;" disabled="disabled">
+</div>
+
+<h4>Robot State</h4>
+<pre id="robot_state">
+
+</pre>
+
+</body>
+</html>
