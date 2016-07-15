@@ -24,7 +24,7 @@ describe("Neato Utils", function() {
       var obj1 = { one: 1, three: [3, 1, 2] };
       var obj2 = { two: 2, three: [3, 1, 2], one: 1 };
 
-      it("returns true", function() {
+      it("returns false", function() {
         expect(Neato.utils.haveEqualProps(obj1, obj2)).toEqual(false);
       });
     });
