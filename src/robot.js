@@ -92,7 +92,7 @@ Neato.Robot.prototype = {
       });
       // compare states
       var gotOnline = typeof(this.state) === "undefined";
-      var stateIsChanged = typeof(this.state) === "undefined" || !Neato.utils.haveEqualProps(this.state, newState);
+      var stateIsChanged = gotOnline || !Neato.utils.haveEqualProps(this.state, newState);
       // save new state
       this.state = newState;
       // trigger callback
