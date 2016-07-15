@@ -41,8 +41,7 @@ src_files:
 #   - helpers/**/*.js
 #
 helpers:
-  - 'helpers/**/*.js'
-  - 'vendor/**/*.js'
+  - 'support/**/**/*.js'
 
 # spec_files
 #
