@@ -1,0 +1,215 @@
+* {
+  font-family: Helvetica, sans-serif;
+  color: #2B3135; }
+
+a {
+  cursor: pointer;
+  cursor: hand; }
+
+body {
+  background-color: #fff; }
+
+h1 {
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 2em;
+  font-weight: 100;
+  background-color: #2B3135;
+  color: #fff;
+  padding: 30px 0; }
+
+h4 {
+  text-align: center;
+  text-transform: lowercase;
+  font-size: 1em;
+  font-weight: lighter;
+  color: #2B3135;
+  padding: 10px 0;
+  height: 20px; }
+
+h2 {
+  color: #555;
+  font-weight: 100;
+  text-transform: uppercase;
+  font-size: 1.8em;
+  text-align: center;
+  margin: 30px; }
+
+.ir {
+  display: block;
+  background-color: transparent;
+  border: 0;
+  overflow: hidden;
+  text-indent: -9999px; }
+
+.wrapword {
+  white-space: -moz-pre-wrap !important;
+  /* Mozilla, since 1999 */
+  white-space: -pre-wrap;
+  /* Opera 4-6 */
+  white-space: -o-pre-wrap;
+  /* Opera 7 */
+  white-space: pre-wrap;
+  /* css-3 */
+  word-wrap: break-word;
+  /* Internet Explorer 5.5+ */
+  white-space: -webkit-pre-wrap;
+  /* Newer versions of Chrome/Safari*/
+  word-break: break-all;
+  white-space: normal; }
+
+.hidden {
+  visibility: hidden; }
+
+.error {
+  margin: 30px auto;
+  width: 250px;
+  background-color: #ffe6e6;
+  border: 2px solid #ff4d4d;
+  border-radius: 10px;
+  font-size: 0.8em;
+  color: #ff4d4d;
+  padding: 5px 0;
+  text-align: center; }
+
+a.btn {
+  display: inline-block;
+  font-size: 12px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 5px;
+  text-decoration: none; }
+  a.btn:hover {
+    opacity: 0.7; }
+
+#signin {
+  margin: 80px 0; }
+  #signin a {
+    display: block;
+    margin: 0 auto;
+    width: 150px;
+    height: 60px;
+    background-image: url("../img/login.png");
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    background-size: 150px 60px; }
+    #signin a:hover {
+      opacity: 0.3; }
+
+#dashboard .robot {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  padding: 20px 0 0 0;
+  border: 1px solid #cdcdcd;
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative; }
+  #dashboard .robot .robot_state {
+    text-align: center;
+    font-size: small;
+    color: #555555; }
+  #dashboard .robot .cmd_find_me {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    background-color: #2B3135;
+    padding: 20px;
+    border-radius: 50px; }
+    #dashboard .robot .cmd_find_me i {
+      color: #fff; }
+    #dashboard .robot .cmd_find_me:hover {
+      opacity: 0.5; }
+  #dashboard .robot .model {
+    text-align: center; }
+  #dashboard .robot .name {
+    text-align: center;
+    color: #555;
+    font-size: 20px;
+    font-weight: 100; }
+  #dashboard .robot .cleaning-commands {
+    margin: 10px auto;
+    text-align: center; }
+    #dashboard .robot .cleaning-commands a {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      margin-right: 5px;
+      border-radius: 10px;
+      wdth: 50px;
+      text-align: center;
+      background-color: #2B3135;
+      padding: 10px 10px;
+      color: #fff; }
+      #dashboard .robot .cleaning-commands a:hover {
+        opacity: 0.5; }
+      #dashboard .robot .cleaning-commands a.disabled {
+        cursor: default;
+        opacity: 0.2; }
+        #dashboard .robot .cleaning-commands a.disabled:hover {
+          background-color: rgba(0, 0, 0, 0.8);
+          background-color: rgba(0, 0, 0, 0.5); }
+      #dashboard .robot .cleaning-commands a i {
+        color: #fff; }
+  #dashboard .robot .other-commands {
+    height: 60px;
+    padding: 20px;
+    margin-top: 30px;
+    background-color: #2B3135;
+    text-align: center; }
+    #dashboard .robot .other-commands p {
+      font-size: 0.8em;
+      font-weight: 100;
+      color: #fff;
+      text-transform: uppercase;
+      text-align: center;
+      margin-bottom: 10px; }
+#dashboard table {
+  margin: 30px 0; }
+  #dashboard table tr.robot {
+    border: 2px solid #fff;
+    background-color: #2B3135; }
+    #dashboard table tr.robot:hover {
+      background-color: #004B7C; }
+  #dashboard table th {
+    color: #555;
+    font-weight: 200; }
+  #dashboard table td {
+    padding: 20px 0;
+    color: #fff;
+    vertical-align: middle; }
+    #dashboard table td a {
+      color: #fff;
+      text-decoration: none;
+      text-transform: uppercase; }
+    #dashboard table td.model {
+      text-align: center;
+      width: 20%; }
+      #dashboard table td.model p {
+        padding-top: 20px;
+        color: #fff;
+        font-size: 1em;
+        font-weight: 100;
+        text-transform: uppercase; }
+    #dashboard table td.commands a {
+      float: left;
+      display: block;
+      width: 20px;
+      height: 20px;
+      margin-right: 5px;
+      border-radius: 10px;
+      wdth: 50px;
+      text-align: center;
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 10px 10px; }
+      #dashboard table td.commands a:hover {
+        background-color: rgba(0, 0, 0, 0.8); }
+      #dashboard table td.commands a.disabled {
+        cursor: default;
+        opacity: 0.2; }
+        #dashboard table td.commands a.disabled:hover {
+          background-color: rgba(0, 0, 0, 0.8);
+          background-color: rgba(0, 0, 0, 0.5); }
+
+/*# sourceMappingURL=style.css.map */

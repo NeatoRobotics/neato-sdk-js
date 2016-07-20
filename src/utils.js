@@ -48,5 +48,11 @@ Neato.utils = {
       }
     }
     return clone;
+  },
+
+  isNullOrEmptyJSON: function(json) {
+    if(json == null) return true;
+    if(jQuery.isEmptyObject(json)) return true;
+    return false;
   }
 };

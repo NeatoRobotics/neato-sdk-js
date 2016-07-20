@@ -92,4 +92,32 @@ describe("Neato Utils", function() {
       });
     });
   });
+
+  describe("#isNullOrEmptyJSON", function() {
+
+    describe("when an object is null or undefined", function () {
+
+      it("return true", function () {
+        var obj = null;
+        var obj2 = undefined;
+        var obj3 = {};
+
+        expect(Neato.utils.isNullOrEmptyJSON(obj)).toEqual(true);
+        expect(Neato.utils.isNullOrEmptyJSON(obj2)).toEqual(true);
+        expect(Neato.utils.isNullOrEmptyJSON(obj3)).toEqual(true);
+      });
+    });
+  });
+
+  describe("#isNullOrEmptyJSON", function() {
+
+    describe("when an object is not null or undefined", function () {
+
+      it("return false", function () {
+        var obj = {name:"marco"};
+
+        expect(Neato.utils.isNullOrEmptyJSON(obj)).toEqual(false);
+      });
+    });
+  });
 });

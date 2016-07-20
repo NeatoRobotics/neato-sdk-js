@@ -8,24 +8,26 @@ describe("Nucleo Services: houseCleaning", function() {
 
   describe("#startCleaning", function() {
 
-    it("calls Nucleo with the appropriate command", function() {
-      var result = robot.startCleaning({
-        category: 11,
-        mode: 22,
-        modifier: 33
-      });
+     it("calls Nucleo with the appropriate command", function() {
+       var result = robot.startCleaning({
+         category: 11,
+         mode: 22,
+         modifier: 33,
+         navigationMode: 1
+       });
 
-      expect(robot.__call).toHaveBeenCalledWith({
-        reqId: "1",
-        cmd: "startCleaning",
-        params: {
-          category: 11,
-          mode: 22,
-          modifier: 33
-        }
-      });
-      expect(result).toBe(deferredObject);
-    });
+       expect(robot.__call).toHaveBeenCalledWith({
+         reqId: "1",
+         cmd: "startCleaning",
+         params: {
+           category: 11,
+           mode: 22,
+           modifier: 33,
+           navigationMode: 1
+         }
+       });
+       expect(result).toBe(deferredObject);
+     });
   });
 
   describe("#stopCleaning", function() {

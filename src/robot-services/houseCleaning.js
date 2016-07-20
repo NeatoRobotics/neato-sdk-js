@@ -8,7 +8,8 @@ Neato.Robot.extend({
       params: {
         category: options.category,
         mode: options.mode,
-        modifier: options.modifier
+        modifier: options.modifier,
+        navigationMode: options.navigationMode
       }
     };
     return this.__call(message);

@@ -14,6 +14,7 @@ src_files:
   - 'neato.js'
   - 'utils.js'
   - 'robot.js'
+  - 'user.js'
   - 'robot-services/*.js'
 
 # stylesheets
