@@ -120,13 +120,10 @@ describe("Neato User", function () {
     var user = new Neato.User();
 
     it("calls Beehive with the correct params", function () {
-      var mock = "call's return value";
+      var mock = $.Deferred();
       spyOn(user, "__call").and.returnValue(mock);
-
-      var returnedValue = user.getRobots();
-
+      user.getRobots();
       expect(user.__call).toHaveBeenCalledWith("GET", "/users/me/robots");
-      expect(returnedValue).toEqual(mock);
     });
   });
 
