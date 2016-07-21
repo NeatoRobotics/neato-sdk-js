@@ -119,11 +119,76 @@ describe("Neato User", function () {
   describe("#getRobots", function () {
     var user = new Neato.User();
 
+    var respondWithRobotsList = function() {
+      mostRecentAjaxRequest().respondWith({
+        status: 200,
+        responseText: '['+
+        '{'+
+        '"serial": "robot1",'+
+        '"prefix": "NSN",'+
+        '"name": "Robot 1",'+
+        '"model": "botvac-85",'+
+        '"secret_key": "04a0fbe6b1f..2572d",'+
+        '"purchased_at": "2014-01-02T12:00:00Z",'+
+        '"proof_of_purchase_url": "https://neatorobotics.s3.amazonaws.com/proof_of_purchases/3dfb187b4033ba7/8dbba2a261eb7f2c0/receipt-1.png",'+
+        '"proof_of_purchase_generated_at": "2014-01-03T12:00:02Z",'+
+        '"mac_address": "12-34-56-78-ab",'+
+        '"firmware": "1.1.1-312",'+
+        '"created_at": "2014-01-02T12:00:00Z",'+
+        '"linked_at": "2014-01-02T12:00:00Z"'+
+        '},'+
+        '{'+
+        '"serial": "robot2",'+
+        '"prefix": "NSN",'+
+        '"name": "Robot 2",'+
+        '"model": "botvac-80",'+
+        '"secret_key": "04a0fbe6b1f..2572e",'+
+        '"purchased_at": "2014-01-02T12:00:00Z",'+
+        '"proof_of_purchase_url": "https://neatorobotics.s3.amazonaws.com/proof_of_purchases/3dfb187b4033ba7/8dbba2a261eb7f2c0/receipt-2.png",'+
+        '"proof_of_purchase_generated_at": "2014-01-03T12:00:02Z",'+
+        '"mac_address": "12-34-56-78-cd",'+
+        '"firmware": "2.2.2-312",'+
+        '"created_at": "2014-01-02T12:00:00Z",'+
+        '"linked_at": "2014-01-02T12:00:00Z"'+
+        '}'+
+        ']'
+      });
+    };
+
     it("calls Beehive with the correct params", function () {
       var mock = $.Deferred();
       spyOn(user, "__call").and.returnValue(mock);
       user.getRobots();
       expect(user.__call).toHaveBeenCalledWith("GET", "/users/me/robots");
+    });
+
+    it("creates correct robot list", function () {
+      user.getRobots();
+      respondWithRobotsList();
+      expect(user.robots.length).toEqual(2);
+
+      expect(user.robots[0].name).toEqual("Robot 1");
+      expect(user.robots[0].model).toEqual("botvac-85");
+      expect(user.robots[0].serial).toEqual("robot1");
+      expect(user.robots[0].secretKey).toEqual("04a0fbe6b1f..2572d");
+
+      expect(user.robots[1].name).toEqual("Robot 2");
+      expect(user.robots[1].model).toEqual("botvac-80");
+      expect(user.robots[1].serial).toEqual("robot2");
+      expect(user.robots[1].secretKey).toEqual("04a0fbe6b1f..2572e");
+    });
+
+  });
+
+  describe("#getRobotBySerial", function () {
+    var user = new Neato.User();
+      user.robots.push(new Neato.Robot("123","098"));
+      user.robots.push(new Neato.Robot("456","765"));
+
+    it("returns the correct robot", function () {
+      expect(user.getRobotBySerial("not-exists")).toEqual(null);
+      expect(user.getRobotBySerial("123").secretKey).toEqual("098");
+      expect(user.getRobotBySerial("456").secretKey).toEqual("765");
     });
   });
 
