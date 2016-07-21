@@ -65,9 +65,9 @@ There's no need to parse the token yoursel, the SDK handle it for you. You only 
 var user = new Neato.User();
 user.isConnected()
   .done(function () {
-	//ok you can retrieve your robot list now
+  //ok you can retrieve your robot list now
   }).fail(function () {
-	//authentication failure or user not yet logged in
+  //authentication failure or user not yet logged in
   });
 ```
 
@@ -101,7 +101,7 @@ To get the user robots list you can do this:
 ```javascript
 user.getRobots()
   .done(function (robots) {
-	  //now user.robots contains the NeatoRobots array
+    //now user.robots contains the NeatoRobots array
   })
   .fail(function (data) {
     //server call error
@@ -159,6 +159,12 @@ Pause cleaning doesn't require parameters:
 robot.pauseCleaning();
 ```
 
+Get general info doesn't require parameters:
+
+```javascript
+robot.generalInfo();
+```
+
 Start cleaning requires parameters like the cleaning type (clean all house or spot), the cleaning mode (eco or turbo) and, in case of spot cleaning, the spot cleaning parameters (large or small area, 1x or 2x).
 
 ```javascript
@@ -171,11 +177,17 @@ robot.startCleaning({
 ```
 
 #### Working with Robot schedule
+To enable or disable at all the scheduling:
+
+```javascript
+robot.enableSchedule();
+robot.disableSchedule();
+```
 
 To schedule a robot clean every Monday at 3:00pm:
 
 ```javascript
-robot..setSchedule({
+robot.setSchedule({
   1: { mode: 1, startTime: "15:00" }
 });
 ```
@@ -183,7 +195,7 @@ robot..setSchedule({
 To schedule a robot clean every day at 3:00pm:
 
 ```javascript
-robot..setSchedule({
+robot.setSchedule({
   0: { mode: 1, startTime: "15:00" },
   1: { mode: 1, startTime: "15:00" },
   2: { mode: 1, startTime: "15:00" },
