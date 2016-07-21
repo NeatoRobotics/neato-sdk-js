@@ -24,8 +24,6 @@ In order to use the Neato SDK JS simply import the *jQuery* and *hmac-sha256* de
 ``` xml
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/hmac-sha256.js"></script>
-```
-``` xml
 <script src="../lib/neato-0.1.0.min.js"></script>
 ```
 
