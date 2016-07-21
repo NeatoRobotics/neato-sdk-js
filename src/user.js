@@ -7,7 +7,7 @@ Neato.User.prototype = {
     // init
     this.__parseRedirectURIResponse();
     this.host = "beehive.neatocloud.com";
-    this.robots = {};
+    this.robots = [];
   },
 
   getUserInfo: function () {
@@ -15,7 +15,32 @@ Neato.User.prototype = {
   },
 
   getRobots: function () {
-    return this.__call("GET", "/users/me/robots");
+    var self = this;
+    var deferredObject = $.Deferred();
+
+    this.__call("GET", "/users/me/robots")
+      .done(function (data) {
+        self.robots = [];
+        for (var i = 0; i < data.length; i++) {
+          self.robots.push(new Neato.Robot(data[i].serial, data[i].secret_key,
+            {
+              name: data[i].name,
+              model: data[i].model
+            }));
+        }
+        deferredObject.resolve.call(self, self.robots);
+      })
+      .fail(function (data) {
+        deferredObject.reject.call(self, data);
+      });
+    return deferredObject;
+  },
+
+  getRobotBySerial: function(serial) {
+    for(var i=0; i<this.robots.length; i++) {
+      if(this.robots[i].serial.localeCompare(serial) == 0 ) return this.robots[i];
+    }
+    return null;
   },
 
   // AUTH

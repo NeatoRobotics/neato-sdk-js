@@ -1,5 +1,4 @@
 var NeatoDemoApp = {
-  robots: {},
   user: null,
 
   initialize: function () {
@@ -10,28 +9,25 @@ var NeatoDemoApp = {
   },
 
   // robot state
-  connect: function (serial, secretKey) {
+  connect: function (robot) {
     var self = this;
 
-    // initialize robot object
-    this.robots[serial] = new Neato.Robot(serial, secretKey, {
-      onConnected: function () {
-        console.log(this.serial + " got connected");
-      },
-      onDisconnected: function (status, json) {
-        console.log(this.serial + " got disconnected");
-        self.guiResetAll(this.serial);
-      },
-      onStateChange: function () {
-        console.log(this.serial + " got new state:", this.state);
-        self.onStateChange(this.serial);
-      }
-    });
-    this.robots[serial].connect();
+    robot.onConnected =  function () {
+      console.log(robot.serial + " got connected");
+    };
+    robot.onDisconnected =  function (status, json) {
+      console.log(robot.serial + " got disconnected");
+      self.guiResetAll(robot.serial);
+    };
+    robot.onStateChange =  function () {
+      console.log(robot.serial + " got new state:", robot.state);
+      self.onStateChange(robot.serial);
+    };
+    robot.connect();
   },
 
   disconnect: function (serial) {
-    this.robots[serial].disconnect();
+    this.user.getRobotBySerial(serial).disconnect();
   },
 
   onStateChange: function (serial) {
@@ -40,16 +36,16 @@ var NeatoDemoApp = {
   },
 
   getAvailableCommands: function (serial) {
-    if (this.robots[serial].state) {
-      return this.robots[serial].state.availableCommands;
+    if (this.user.getRobotBySerial(serial).state) {
+      return this.user.getRobotBySerial(serial).state.availableCommands;
     } else {
       return null;
     }
   },
 
   getAvailableServices: function (serial) {
-    if (this.robots[serial].state) {
-      return this.robots[serial].state.availableServices;
+    if (this.user.getRobotBySerial(serial).state) {
+      return this.user.getRobotBySerial(serial).state.availableServices;
     } else {
       return null;
     }
@@ -70,7 +66,7 @@ var NeatoDemoApp = {
   },
 
   startHouseCleaning: function (serial) {
-    this.robots[serial].startCleaning({
+    this.user.getRobotBySerial(serial).startCleaning({
       category: 2,
       mode: 1,
       modifier: 1,
@@ -79,33 +75,33 @@ var NeatoDemoApp = {
   },
 
   pauseCleaning: function (serial) {
-    this.robots[serial].pauseCleaning();
+    this.user.getRobotBySerial(serial).pauseCleaning();
   },
 
   resumeCleaning: function (serial) {
-    this.robots[serial].resumeCleaning();
+    this.user.getRobotBySerial(serial).resumeCleaning();
   },
 
   stopCleaning: function (serial) {
-    this.robots[serial].stopCleaning();
+    this.user.getRobotBySerial(serial).stopCleaning();
   },
 
   sendToBase: function (serial) {
-    this.robots[serial].sendToBase();
+    this.user.getRobotBySerial(serial).sendToBase();
   },
 
   findMe: function (serial) {
-    this.robots[serial].findMe();
+    this.user.getRobotBySerial(serial).findMe();
   },
 
   setScheduleEveryMonday: function(serial) {
-    this.robots[serial].setSchedule({
+    this.user.getRobotBySerial(serial).setSchedule({
       1: { mode: 1, startTime: "15:00" }
     });
   },
 
   setScheduleEveryDay: function(serial) {
-    this.robots[serial].setSchedule({
+    this.user.getRobotBySerial(serial).setSchedule({
       0: { mode: 1, startTime: "15:00" },
       1: { mode: 1, startTime: "15:00" },
       2: { mode: 1, startTime: "15:00" },
@@ -197,39 +193,41 @@ var NeatoDemoApp = {
 
     //get user robots
     this.user.getRobots()
-      .done(function (data) {
-
-        //populate NeatoRobot list
-        for (var i = 0; i < data.length; i++) {
-          self.connect(data[i].serial, data[i].secret_key);
+      .done(function (robotsArray) {
+        var html = "";
+        var robot;
+        //start polling robot state
+        for (var i = 0; i < robotsArray.length; i++) {
+          robot = robotsArray[i];
+          self.connect(robot);
+          html += self.guiRobotTemplate(robot);
         }
-        
-        var template = "{{#robots}}" +
-          "<div class='robot grid-40 prefix-5 suffix-5' data-serial='{{serial}}' data-secret_key='{{secret_key}}'>" +
-            "<div class='model'><img src='img/{{model}}.png'></div>" +
-            "<p class='name'>{{name}}</p>" +
-            "<p class='robot_state'>NOT AVAILABLE</p>" +
-            "<a class='cmd_find_me'><i class='fa fa-search' aria-hidden='true'></i></a>" +
-            "<div class='cleaning-commands'>" +
-              "<a class='cmd_start disabled'><i class='fa fa-play' aria-hidden='true'></i></a>" +
-              "<a class='cmd_pause disabled'><i class='fa fa-pause' aria-hidden='true'></i></a>" +
-              "<a class='cmd_stop disabled'><i class='fa fa-stop' aria-hidden='true'></i></a>" +
-              "<a class='cmd_send_to_base disabled'><i class='fa fa-undo' aria-hidden='true'></i></a>" +
-            "</div>" +
-
-            "<div class='other-commands'>" +
-              "<p>Scheduling</p>" +
-              "<a class='btn cmd_schedule_every_day'>Everyday at 3:00 pm</a>" +
-              "<a class='btn cmd_schedule_monday'>Monday at 3:00 pm</a>" +
-            "</div>" +
-          "</div>"+
-          "{{/robots}}";
-        var html = Mustache.to_html(template, {robots: data});
         $("#robot_list").html(html);
       }).fail(function (data) {
         self.showErrorMessage("something went wrong retrieving robot list....");
       });
   },
+
+  guiRobotTemplate: function(robot) {
+    return "<div class='robot grid-40 prefix-5 suffix-5' data-serial='"+robot.serial+"' data-secret_key='"+robot.secret_key+"'>" +
+      "<div class='model'><img src='img/botvacconnected.png'></div>" +
+      "<p class='name'>"+robot.name+"</p>" +
+      "<p class='robot_state'>NOT AVAILABLE</p>" +
+      "<a class='cmd_find_me'><i class='fa fa-search' aria-hidden='true'></i></a>" +
+      "<div class='cleaning-commands'>" +
+      "<a class='cmd_start disabled'><i class='fa fa-play' aria-hidden='true'></i></a>" +
+      "<a class='cmd_pause disabled'><i class='fa fa-pause' aria-hidden='true'></i></a>" +
+      "<a class='cmd_stop disabled'><i class='fa fa-stop' aria-hidden='true'></i></a>" +
+      "<a class='cmd_send_to_base disabled'><i class='fa fa-undo' aria-hidden='true'></i></a>" +
+      "</div>" +
+      "<div class='other-commands'>" +
+      "<p>Scheduling</p>" +
+      "<a class='btn cmd_schedule_every_day'>Everyday at 3:00 pm</a>" +
+      "<a class='btn cmd_schedule_monday'>Monday at 3:00 pm</a>" +
+      "</div>" +
+      "</div>";
+  },
+
   guiShowAuthenticationErrorUI: function (message) {
     this.guiShowLoginPage();
     this.showErrorMessage(message);
@@ -277,7 +275,7 @@ var NeatoDemoApp = {
     var $robotState = $("div[data-serial='" + serial + "']");
 
     var prettyState = "NOT AVAILABLE";
-    var robot_state = this.robots[serial].state.state;
+    var robot_state = this.user.getRobotBySerial(serial).state.state;
     switch (robot_state) {
       case 1:
         prettyState = "IDLE";

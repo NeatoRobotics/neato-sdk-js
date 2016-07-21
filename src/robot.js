@@ -13,6 +13,8 @@ Neato.Robot.prototype = {
     this.onConnected = options.onConnected;
     this.onDisconnected = options.onDisconnected;
     this.onStateChange = options.onStateChange;
+    this.name = options.name;
+    this.model = options.model;
   },
 
   connect: function() {
