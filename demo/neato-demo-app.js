@@ -1,7 +1,9 @@
 var NeatoDemoApp = {
+  clientId: null,
   user: null,
 
-  initialize: function () {
+  initialize: function (clientId) {
+    this.clientId = clientId;
     this.guiShowLoginPage();
     this.guiHideDashboardPage();
     this.guiInitializeEvents();
@@ -138,9 +140,9 @@ var NeatoDemoApp = {
 
     $("#cmd_login").click(function () {
       self.user.login({
-        client_id: "1a7c62d101668075900243343265f1e8354b7e9fd2faefcee3774551f809733d",
+        client_id: self.clientId,
         scopes: "control_robots+email",
-        redirect_url: "https://localhost:63342/neato-sdk-js/demo/index.html"
+        redirect_url: location.protocol+"//"+location.host+location.pathname
       });
     });
     $(document).on("click", ".cmd_start", function () {
@@ -313,7 +315,3 @@ var NeatoDemoApp = {
     $("div.error").hide();
   }
 };
-
-$(function () {
-  NeatoDemoApp.initialize();
-});
