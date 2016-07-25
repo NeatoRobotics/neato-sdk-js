@@ -5,9 +5,6 @@ A javascript library to interact with Neato servers and robots via Ajax calls.
 
 To boost your development you can also check the *sample application*.
 
-## Before you start using the Neato SDK JS
-//TODO  explain the dev he has to create an app on the Neato Developer portar in order to obtain CLIENT ID, roles, redirect url schema....
-
 ## What you cannot do with this SDK
 With this SDK you cannot do these things:
 
@@ -15,8 +12,7 @@ With this SDK you cannot do these things:
  - Link the robot to the user account (this must to be achieved through the official Neato App).
 
 ## A note about Manual Cleaning
-The SDK doesn't offer a ready to use way to control manually your robot. 
-//TODO how to do manual cleaning yourself
+The current version of the SDK doesn't offer a ready to use way to control manually your robot. 
 
 ## Setup  
 In order to use the Neato SDK JS simply import the *jQuery* and *hmac-sha256* dependencies and the *neato-x.y.z.min.js* file:
