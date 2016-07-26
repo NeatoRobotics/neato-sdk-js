@@ -1,18 +1,18 @@
 [![Build Status](https://travis-ci.com/NeatoRobotics/neato-sdk-js.svg?token=ByJZpJTVhxGJyseW4ZnD&branch=master)](https://travis-ci.com/NeatoRobotics/neato-sdk-js)
 
 # Neato SDK JS
-A javascript library to interact with Neato servers and robots via Ajax calls.
 
-To boost your development you can also check the *sample application*.
+This is the official JavaScript SDK (Beta release) for the Neato API services.
+The Neato JavaScript SDK enables easy interaction with Neato servers and robots via Ajax calls.
 
-## What you cannot do with this SDK
-With this SDK you cannot do these things:
+To boost your development, you can also check the *sample application*.
 
- - Create the user Neato account: the user must to already have a Neato account (created from the Neato portal or from the official Neato App).
- - Link the robot to the user account (this must to be achieved through the official Neato App).
+> This is a beta version. It is subject to change without prior notice.
 
-## A note about Manual Cleaning
-The current version of the SDK doesn't offer a ready to use way to control manually your robot. 
+## Preconditions
+
+ - Create the Neato user account via the Neato portal or from the official Neato App
+ - Link the robot to the user account via the official Neato App
 
 ## Setup  
 In order to use the Neato SDK JS simply import the *jQuery* and *hmac-sha256* dependencies and the *neato-x.y.z.min.js* file:
@@ -26,9 +26,9 @@ In order to use the Neato SDK JS simply import the *jQuery* and *hmac-sha256* de
 
 ## Usage
 The Neato SDK has 3 main roles:
-1. Handling OAuth authentications.
-2. Simplifying users info interactions.
-3. Managing communication with Robots.
+1. Handling OAuth authentications
+2. Simplifying users info interactions
+3. Managing communication with Robots
 
 These tasks are handled by two classes: `NeatoUser` and `NeatoRobot`.
 
@@ -51,11 +51,11 @@ user.login({
 });
 ```
 
-The SDK will start itself the authentication flow navigating to the Neato authentication page where the user inserts his Neato account credentials and accept your app to handle your Neato data. If the authentication is successfull you will be redirected to the redirect uri page and an *access_token* parameters will be passed into the url. 
+The SDK will start the authentication flow navigating to the Neato authentication page where the user inserts his Neato account credentials and accept your app to handle your Neato data. If the authentication is successful, you will be redirected to the redirect uri page and an *access_token* parameters will be passed into the url. 
 
 #### 3. Check if the user is now connected
 
-There's no need to parse the token yoursel, the SDK handle it for you. You only have to check if the user is now connected to the Neato server or not:
+There's no need to parse the token yourself, the SDK handles it for you. You only have to check if the user is now connected to the Neato server or not:
 
 ```javascript
 var user = new Neato.User();
@@ -67,7 +67,7 @@ user.isConnected()
   });
 ```
 
-In order to understand why the *isConnected()* method returns failure you can use these methods on the user object:
+In order to understand why the *isConnected()* method returns failure, you can use these methods on the user object:
 
 ```javascript
 if(user.authenticationError()) {
@@ -80,7 +80,7 @@ if(user.authenticationError()) {
 ```
 
 ### Working with Users
-Once the user is authenticated you can retrieve user informations using the NeatoUser class:
+Once the user is authenticated you can retrieve user information using the `NeatoUser` class:
 
 ```javascript
 user.getUserInfo()
@@ -92,7 +92,7 @@ user.getUserInfo()
   });
 ```
 #### Get user robots
-To get the user robots list you can do this:
+To get the user robot list you can do this:
 
 ```javascript
 user.getRobots()
@@ -104,7 +104,7 @@ user.getRobots()
   });
 ```
 
-*NeatoRobot* is a special class we have developed for you that can be used to directly invoke commands on the robot, see next.
+*NeatoRobot* is a special class we have developed for you that can be used to directly invoke commands on the robot.
 
 To count the robots do this:
 
@@ -120,16 +120,16 @@ var robot = user.getRobotBySerial(serial);
 
 ### Communicating with Robots
 Now that you have the robots for an authenticated user it’s time to communicate with them.
-In the previous call you've seen how easy is to retrieve `NeatoRobot` instances for your current user. Those instances are ready to receive messages from your app (if the robots are online obviously).
+In the previous call you've seen how easy it is to retrieve `NeatoRobot` instances for your current user. Those instances are ready to receive messages from your app (if the robots are online obviously).
 
 #### The robot status
-Before we saw how to retrieve the robots list from the NeatoUser class. Is a best practice to check the robot state before sending commands to it otherwise the robot maybe in the situation he cannot accepts the command and returns an error code. To update/get the robot state do this:
+Before, we saw how to retrieve the robot list from the `NeatoUser` class. It is best practice to check the robot state before sending commands, otherwise the robot may be in a state that cannot accept the command and return an error code. To update/get the robot state do this:
 
 ```javascript
 robot.connect();
 ```
 
-This method start polling for the robot state every X seconds and invoke the *onStateChanged()* if a state change occurs.
+This method starts polling for the robot state every X seconds and invoke the *onStateChanged()* if a state change occurs.
 
 So, if you are interested in these events you can do this:
 
@@ -147,7 +147,7 @@ robot.connect();
 ```
 
 #### Sending commands to a Robot
-An online robot is ready to receives your commands like `start cleaning`. Some commands require parameters others not, see the API doc for details.  
+An online robot is ready to receive your commands like `startCleaning`. Some commands require parameters while others don't, see the API doc for details.  
 
 Pause cleaning doesn't require parameters:
 
@@ -173,7 +173,7 @@ robot.startCleaning({
 ```
 
 #### Working with Robot schedule
-To enable or disable at all the scheduling:
+To enable or disable all the schedule:
 
 ```javascript
 robot.enableSchedule();
@@ -188,7 +188,7 @@ robot.setSchedule({
 });
 ```
 
-To schedule a robot clean every day at 3:00pm:
+To schedule a robot clean everyday at 3:00pm:
 
 ```javascript
 robot.setSchedule({
@@ -202,19 +202,19 @@ robot.setSchedule({
 });
 ```
 
-*Note: not all robot models support the eco/turbo cleaning mode. You should check the robot available services before sending that parameters.*
+*Note: not all robot models support the eco/turbo cleaning mode. You should check the robot available services before sending those parameters.*
 
 
 
 #### Checking robot available services
 
-Different robot models and versions have different features. So before sending commands to the robot you should check if that command is available on the robot. Otherwise the robot will responde with an error. You can check the available services on the robot:
+Different robot models and versions have different features. So before sending commands to the robot you should check if that command is available on the robot. Otherwise the robot will respond with an error. You can check the available services on the robot:
 
 ```javascript
 var availableServices = robot.state.availableCommands;
 ```
 
-In addition there are some utility methods you can use to check if the robot support the services.
+In addition there are some utility methods you can use to check if the robot supports the services.
 
 ```javascript
 if(availableServices["findMe"]) {
