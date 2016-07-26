@@ -46,9 +46,12 @@ Neato.User.prototype = {
   // AUTH
   login: function (options) {
     options = options || {};
-    var url = "https://" + this.host + "/oauth2/authorize?client_id=" + options["client_id"] +
-      "&scope=" + options["scopes"] + "&response_type=token&redirect_uri=" + options["redirect_url"];
+    var url = "https://" + this.host + "/oauth2/authorize?client_id=" + options["clientId"] +
+      "&scope=" + options["scopes"] + "&response_type=token&redirect_uri=" + options["redirectUrl"];
     this.__navigateToURL(url);
+  },
+  logout: function() {
+    return this.__call("POST", "/oauth2/revoke");
   },
   isConnected: function () {
     var self = this;

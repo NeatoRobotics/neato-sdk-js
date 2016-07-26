@@ -38,14 +38,18 @@
         <h2>My robots</h2>
         <div class="error wrapword"></div>
         <div id="robot_list" class="grid-100"></div>
+        <h4 id="cmd_logout"><a>logout</a></h4>
     </section>
 
 </div>
 
 <script type="text/javascript">
     $(function () {
-        var clientId = "1a7c62d101668075900243343265f1e8354b7e9fd2faefcee3774551f809733d";
-        NeatoDemoApp.initialize(clientId);
+        NeatoDemoApp.initialize({
+          clientId: "1a7c62d101668075900243343265f1e8354b7e9fd2faefcee3774551f809733d",
+          scopes: "control_robots+email",
+          redirectUrl: "https://localhost:63342/neato-sdk-js/demo/index.html"
+        });
     });
 </script>
 </body>

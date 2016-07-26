@@ -1,9 +1,14 @@
 var NeatoDemoApp = {
   clientId: null,
+  scopes: null,
+  redirectUrl: null,
   user: null,
 
-  initialize: function (clientId) {
-    this.clientId = clientId;
+  initialize: function (options) {
+    this.clientId = options.clientId;
+    this.scopes = options.scopes;
+    this.redirectUrl = options.redirectUrl;
+
     this.guiShowLoginPage();
     this.guiHideDashboardPage();
     this.guiInitializeEvents();
@@ -140,10 +145,19 @@ var NeatoDemoApp = {
 
     $("#cmd_login").click(function () {
       self.user.login({
-        client_id: self.clientId,
-        scopes: "control_robots+email",
-        redirect_url: location.protocol+"//"+location.host+location.pathname
+        clientId: self.clientId,
+        scopes: self.scopes,
+        redirectUrl: self.redirectUrl
       });
+    });
+    $("#cmd_logout").click(function () {
+      self.user.logout()
+        .done(function (data) {
+          self.guiHideDashboardPage();
+          self.guiShowLoginPage();
+        }).fail(function (data) {
+          self.showErrorMessage("something went wrong during logout...");
+      });;
     });
     $(document).on("click", ".cmd_start", function () {
       self.startOrResume($(this).parents(".robot").attr('data-serial'));
@@ -213,20 +227,20 @@ var NeatoDemoApp = {
   guiRobotTemplate: function(robot) {
     return "<div class='robot grid-40 prefix-5 suffix-5' data-serial='"+robot.serial+"' data-secret_key='"+robot.secret_key+"'>" +
       "<div class='model'><img src='img/botvacconnected.png'></div>" +
-      "<p class='name'>"+robot.name+"</p>" +
-      "<p class='robot_state'>NOT AVAILABLE</p>" +
-      "<a class='cmd_find_me'><i class='fa fa-search' aria-hidden='true'></i></a>" +
-      "<div class='cleaning-commands'>" +
-      "<a class='cmd_start disabled'><i class='fa fa-play' aria-hidden='true'></i></a>" +
-      "<a class='cmd_pause disabled'><i class='fa fa-pause' aria-hidden='true'></i></a>" +
-      "<a class='cmd_stop disabled'><i class='fa fa-stop' aria-hidden='true'></i></a>" +
-      "<a class='cmd_send_to_base disabled'><i class='fa fa-undo' aria-hidden='true'></i></a>" +
-      "</div>" +
-      "<div class='other-commands'>" +
-      "<p>Scheduling</p>" +
-      "<a class='btn cmd_schedule_every_day'>Everyday at 3:00 pm</a>" +
-      "<a class='btn cmd_schedule_monday'>Monday at 3:00 pm</a>" +
-      "</div>" +
+        "<p class='name'>"+robot.name+"</p>" +
+        "<p class='robot_state'>NOT AVAILABLE</p>" +
+        "<a class='cmd_find_me'><i class='fa fa-search' aria-hidden='true'></i></a>" +
+        "<div class='cleaning-commands'>" +
+          "<a class='cmd_start disabled'><i class='fa fa-play' aria-hidden='true'></i></a>" +
+          "<a class='cmd_pause disabled'><i class='fa fa-pause' aria-hidden='true'></i></a>" +
+          "<a class='cmd_stop disabled'><i class='fa fa-stop' aria-hidden='true'></i></a>" +
+          "<a class='cmd_send_to_base disabled'><i class='fa fa-undo' aria-hidden='true'></i></a>" +
+        "</div>" +
+        "<div class='other-commands'>" +
+          "<p>Set schedule</p>" +
+          "<a class='btn cmd_schedule_every_day'>Everyday at 3:00 pm</a>" +
+          "<a class='btn cmd_schedule_monday'>Monday at 3:00 pm</a>" +
+        "</div>" +
       "</div>";
   },
 

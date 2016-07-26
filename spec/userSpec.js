@@ -106,13 +106,23 @@ describe("Neato User", function () {
       user = new Neato.User();
       spyOn(user, "__navigateToURL")
       user.login({
-        client_id: client_id,
+        clientId: client_id,
         scopes: scopes,
-        redirect_url: redirect_url
+        redirectUrl: redirect_url
       });
 
       var expected_auth_url = "https://" + host + "/oauth2/authorize?client_id=" + client_id + "&scope=" + scopes + "&response_type=token&redirect_uri=" + redirect_url;
       expect(user.__navigateToURL).toHaveBeenCalledWith(expected_auth_url);
+    });
+  });
+
+  describe("#logout", function(){
+    var user = new Neato.User();
+    it("calls Beehive with the correct params", function () {
+      var mock = $.Deferred();
+      spyOn(user, "__call").and.returnValue(mock);
+      user.logout();
+      expect(user.__call).toHaveBeenCalledWith("POST", "/oauth2/revoke");
     });
   });
 
