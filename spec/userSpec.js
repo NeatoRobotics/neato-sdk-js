@@ -118,11 +118,15 @@ describe("Neato User", function () {
 
   describe("#logout", function(){
     var user = new Neato.User();
+    user.token = "123";
     it("calls Beehive with the correct params", function () {
       var mock = $.Deferred();
       spyOn(user, "__call").and.returnValue(mock);
       user.logout();
-      expect(user.__call).toHaveBeenCalledWith("POST", "/oauth2/revoke");
+      expect(user.__call).toHaveBeenCalledWith("POST", "/oauth2/revoke",
+        {
+          token: "123"
+        });
     });
   });
 
