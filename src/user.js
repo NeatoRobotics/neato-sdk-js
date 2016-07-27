@@ -51,7 +51,11 @@ Neato.User.prototype = {
     this.__navigateToURL(url);
   },
   logout: function() {
-    return this.__call("POST", "/oauth2/revoke");
+    var self = this;
+    return this.__call("POST", "/oauth2/revoke",
+      {
+        token: self.token
+      });
   },
   isConnected: function () {
     var self = this;
@@ -118,7 +122,8 @@ Neato.User.prototype = {
       headers: {
         Accept: acceptHeader,
         Authorization: authorizationHeader,
-        "X-Date": dateHeader
+        "X-Date": dateHeader,
+        "Content-type": "application/json"
       },
       data: messageStr
     });
