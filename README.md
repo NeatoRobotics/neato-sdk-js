@@ -2,7 +2,8 @@
 
 # Neato SDK JS
 
-This is the official JavaScript SDK (Beta release) for the Neato API services.
+The official Javascript SDK (Beta release) for the Neato API services can be found at this [link](https://github.com/NeatoRobotics/neato-sdk-js).  
+
 The Neato JavaScript SDK enables easy interaction with Neato servers and robots via Ajax calls.
 
 To boost your development, you can also check the *sample application*.
