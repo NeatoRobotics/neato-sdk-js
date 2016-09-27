@@ -2,9 +2,7 @@
 
 # Neato SDK JS
 
-The official Javascript SDK (Beta release) for the Neato API services can be found at this [link](https://github.com/NeatoRobotics/neato-sdk-js).  
-
-The Neato JavaScript SDK enables easy interaction with Neato servers and robots via Ajax calls.
+The Neato JavaScript SDK enables easy interaction with Neato servers and robots via Ajax calls. The official Javascript SDK (Beta release) for the Neato API services can be found at this [link](https://github.com/NeatoRobotics/neato-sdk-js).
 
 To boost your development, you can also check the *sample application*.
 
@@ -15,7 +13,7 @@ To boost your development, you can also check the *sample application*.
  - Create the Neato user account via the Neato portal or from the official Neato App
  - Link the robot to the user account via the official Neato App
 
-## Setup  
+## Setup
 In order to use the Neato SDK JS simply import the *jQuery* and *hmac-sha256* dependencies and the *neato-x.y.z.min.js* file:
 
 ``` xml
@@ -24,17 +22,16 @@ In order to use the Neato SDK JS simply import the *jQuery* and *hmac-sha256* de
 <script src="../lib/neato-0.1.0.min.js"></script>
 ```
 
-
 ## Usage
 The Neato SDK has 3 main roles:
 1. Handling OAuth authentications
 2. Simplifying users info interactions
 3. Managing communication with Robots
 
-These tasks are handled by two classes: `NeatoUser` and `NeatoRobot`.
+These tasks are handled by two classes: `Neato.User` and `Neato.Robot`.
 
 ### Authentication
-The Neato SDK leverages on OAuth 2 to perform user authentication. 
+The Neato SDK leverages on OAuth 2 to perform user authentication.
 
 #### 1. Retrieve your client_id, scopes and redirect_url
 Before start please retrieve your *client_id*, *scopes* and *redirect_uri* you entered during the creation of your app on the Neato Developer Portal. These values must match in order to authenticate the user.
@@ -46,13 +43,13 @@ To start the authentication flow simply invoke the *login()* method on the user 
 ```javascript
 var user = new Neato.User();
 user.login({
- clientId: "your_app_client_id",
- scopes: "control_robots+email",
- redirectUrl: "your_redirect_uri"
+  clientId:    "your_app_client_id",
+  scopes:      "control_robots+email",
+  redirectUrl: "your_redirect_uri"
 });
 ```
 
-The SDK will start the authentication flow navigating to the Neato authentication page where the user inserts his Neato account credentials and accept your app to handle your Neato data. If the authentication is successful, you will be redirected to the redirect uri page and an *access_token* parameters will be passed into the url. 
+The SDK will start the authentication flow navigating to the Neato authentication page where the user inserts his Neato account credentials and accept your app to handle your Neato data. If the authentication is successful, you will be redirected to the redirect uri page and an *access_token* parameters will be passed into the url.
 
 #### 3. Check if the user is now connected
 
@@ -62,9 +59,9 @@ There's no need to parse the token yourself, the SDK handles it for you. You onl
 var user = new Neato.User();
 user.isConnected()
   .done(function () {
-  //ok you can retrieve your robot list now
+    // ok you can retrieve your robot list now
   }).fail(function () {
-  //authentication failure or user not yet logged in
+    // authentication failure or user not yet logged in
   });
 ```
 
@@ -72,11 +69,11 @@ In order to understand why the *isConnected()* method returns failure, you can u
 
 ```javascript
 if(user.authenticationError()) {
-  //OAuth authentication failed/denied
-}else if(!user.connected && user.token != null) {
-  //invalid/expired token
-}else {
-  //nothing to do here, show the login form to the user
+  // OAuth authentication failed/denied
+} else if(!user.connected && user.token != null) {
+  // invalid / expired token
+} else {
+  // nothing to do here, show the login form to the user
 }
 ```
 
@@ -89,7 +86,7 @@ user.getUserInfo()
     var email = data.email || "";
   })
   .fail(function (data) {
-    //server call error
+    // server call error
   });
 ```
 #### Get user robots
@@ -98,10 +95,10 @@ To get the user robot list you can do this:
 ```javascript
 user.getRobots()
   .done(function (robots) {
-    //now user.robots contains the NeatoRobots array
+    // now user.robots contains the NeatoRobots array
   })
   .fail(function (data) {
-    //server call error
+    // server call error
   });
 ```
 
@@ -148,7 +145,7 @@ robot.connect();
 ```
 
 #### Sending commands to a Robot
-An online robot is ready to receive your commands like `startCleaning`. Some commands require parameters while others don't, see the API doc for details.  
+An online robot is ready to receive your commands like `startCleaning`. Some commands require parameters while others don't, see the API doc for details.
 
 Pause cleaning doesn't require parameters:
 
@@ -227,7 +224,6 @@ if(availableServices["findMe"]) {
 
  * [jQuery](https://jquery.com/) (> 2.2.0)
  * [hmac-sha256.js](https://code.google.com/p/crypto-js/)
-
 
 ## Development
 You need to install Ruby and bundle the gems.
