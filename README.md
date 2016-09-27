@@ -13,6 +13,12 @@ To boost your development, you can also check the *sample application*.
  - Create the Neato user account via the Neato portal or from the official Neato App
  - Link the robot to the user account via the official Neato App
 
+## Demo
+An example app can be found in the [demo](/demo) folder.
+
+For your convenience, an online demo can be seen on the [Neato Developer Network](https://developers.neatorobotics.com) at the address:
+[https://developers.neatorobotics.com/demo/sdk-js](https://developers.neatorobotics.com/demo/sdk-js)
+
 ## Setup
 In order to use the Neato SDK JS simply import the *jQuery* and *hmac-sha256* dependencies and the *neato-x.y.z.min.js* file:
 
@@ -24,6 +30,7 @@ In order to use the Neato SDK JS simply import the *jQuery* and *hmac-sha256* de
 
 ## Usage
 The Neato SDK has 3 main roles:
+
 1. Handling OAuth authentications
 2. Simplifying users info interactions
 3. Managing communication with Robots
@@ -226,13 +233,10 @@ if(availableServices["findMe"]) {
  * [hmac-sha256.js](https://code.google.com/p/crypto-js/)
 
 ## Development
-You need to install Ruby and bundle the gems.
+Install Ruby and bundle the gems.
 
-### Building
-To build the minified version of the library:
-
-```bash
-$ rake build
+```
+$ bundle install
 ```
 
 ### TDD
@@ -249,4 +253,11 @@ To run tests:
 
 ```bash
 $ rake
+```
+
+## Building
+To build the minified version of the library:
+
+```bash
+$ rake build
 ```
