@@ -111,7 +111,7 @@ describe("Neato User", function () {
         redirectUrl: redirect_url
       });
 
-      var expected_auth_url = "https://" + host + "/oauth2/authorize?client_id=" + client_id + "&scope=" + scopes + "&response_type=token&redirect_uri=" + redirect_url;
+      var expected_auth_url = "https://apps.neatorobotics.com/oauth2/authorize?client_id=" + client_id + "&scope=" + scopes + "&response_type=token&redirect_uri=" + redirect_url;
       expect(user.__navigateToURL).toHaveBeenCalledWith(expected_auth_url);
     });
   });

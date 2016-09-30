@@ -7,6 +7,7 @@ Neato.User.prototype = {
     // init
     this.__parseRedirectURIResponse();
     this.host = "beehive.neatocloud.com";
+    this.oauthHost = "apps.neatorobotics.com";
     this.robots = [];
   },
 
@@ -46,7 +47,7 @@ Neato.User.prototype = {
   // AUTH
   login: function (options) {
     options = options || {};
-    var url = "https://" + this.host + "/oauth2/authorize?client_id=" + options["clientId"] +
+    var url = "https://" + this.oauthHost + "/oauth2/authorize?client_id=" + options["clientId"] +
       "&scope=" + options["scopes"] + "&response_type=token&redirect_uri=" + options["redirectUrl"];
     this.__navigateToURL(url);
   },
