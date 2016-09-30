@@ -202,7 +202,7 @@ var NeatoDemoApp = {
     //get user email if available
     this.user.getUserInfo()
       .done(function (data) {
-        $("#user_email").html(data.email || "");
+        $("#user_first_name").html(data.first_name || "");
       }).fail(function (data) {
         self.showErrorMessage("something went wrong accessing user info....");
       });
