@@ -234,10 +234,10 @@ var NeatoDemoApp = {
           "<a class='cmd_start disabled'><i class='fa fa-play' aria-hidden='true'></i></a>" +
           "<a class='cmd_pause disabled'><i class='fa fa-pause' aria-hidden='true'></i></a>" +
           "<a class='cmd_stop disabled'><i class='fa fa-stop' aria-hidden='true'></i></a>" +
-          "<a class='cmd_send_to_base disabled'><i class='fa fa-undo' aria-hidden='true'></i></a>" +
+          "<a class='cmd_send_to_base disabled'><i class='fa fa-home' aria-hidden='true'></i></a>" +
         "</div>" +
         "<div class='other-commands'>" +
-          "<p>Set schedule</p>" +
+          "<p>WIPE ALL EXISTING SCHEDULE AND SET IT TO:</p>" +
           "<a class='btn cmd_schedule_every_day'>Everyday at 3:00 pm</a>" +
           "<a class='btn cmd_schedule_monday'>Monday at 3:00 pm</a>" +
         "</div>" +
