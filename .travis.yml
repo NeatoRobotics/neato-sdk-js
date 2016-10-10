@@ -2,6 +2,10 @@ language: ruby
 rvm:
   - 2.3.0
 
+branches:
+  only:
+    - master
+
 install: bundle
 
 script: "bundle exec rake"
