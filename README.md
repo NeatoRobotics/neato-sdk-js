@@ -1,8 +1,9 @@
 [![Build Status](https://travis-ci.org/NeatoRobotics/neato-sdk-js.svg?branch=master)](https://travis-ci.org/NeatoRobotics/neato-sdk-js)
 
-# Neato SDK JS
+# Neato SDK - JS
 
-The Neato JavaScript SDK enables easy interaction with Neato servers and robots via Ajax calls. The official Javascript SDK (Beta release) for the Neato API services can be found at this [link](https://github.com/NeatoRobotics/neato-sdk-js).
+This is the [Neato Developer Network's](http://developers.neatorobotics.com) official JavaScript SDK (Beta release).
+The Neato JavaScript SDK enables easy interaction with Neato servers and robots via Ajax calls.
 
 To boost your development, you can also check the *sample application*.
 
