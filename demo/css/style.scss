@@ -171,6 +171,23 @@ a.btn {
       }
     }
 
+    .cmd_maps{
+      position:absolute;
+      left:20px;
+      top:20px;
+      background-color: $primary-color;
+      padding:20px;
+      border-radius:50px;
+
+      i{
+        color:#fff;
+      }
+
+      &:hover{
+        opacity:0.5;
+      }
+    }
+
     .model{
       text-align: center;
     }

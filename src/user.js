@@ -9,10 +9,21 @@ Neato.User.prototype = {
     this.host = "beehive.neatocloud.com";
     this.oauthHost = "apps.neatorobotics.com";
     this.robots = [];
+
+    // this is important to setup correctly the session.
+    Neato.user = this;
   },
 
   getUserInfo: function () {
     return this.__call("GET", "/users/me");
+  },
+
+  __getRobotMaps: function (serial) {
+    return this.__call("GET", "/users/me/robots/"+serial+"/maps");
+  },
+
+  __getMapDetails: function (serial, mapId) {
+    return this.__call("GET", "/users/me/robots/"+serial+"/maps/"+mapId);
   },
 
   getRobots: function () {

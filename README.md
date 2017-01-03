@@ -52,7 +52,7 @@ To start the authentication flow simply invoke the *login()* method on the user 
 var user = new Neato.User();
 user.login({
   clientId:    "your_app_client_id",
-  scopes:      "control_robots+email",
+  scopes:      "control_robots+email+maps",
   redirectUrl: "your_redirect_uri"
 });
 ```

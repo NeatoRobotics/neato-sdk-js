@@ -101,6 +101,24 @@ var NeatoDemoApp = {
     this.user.getRobotBySerial(serial).findMe();
   },
 
+  maps: function (serial) {
+    var self = this;
+    self.user.getRobotBySerial(serial).maps().done(function (data) {
+      if(data["maps"] && data["maps"].length > 0) {
+        var mapId = data["maps"][0]["id"];
+        self.user.getRobotBySerial(serial).mapDetails(mapId).done(function (data) {
+          window.open(data["url"]);
+        }).fail(function (data) {
+          self.showErrorMessage("something went wrong getting map details....");
+        });
+      }else {
+        alert("No maps available yet. Complete at least one house cleaning to view maps.")
+      }
+    }).fail(function (data) {
+      self.showErrorMessage("something went wrong getting robots map....");
+    });
+  },
+
   setScheduleEveryMonday: function(serial) {
     this.user.getRobotBySerial(serial).setSchedule({
       1: { mode: 1, startTime: "15:00" }
@@ -157,7 +175,7 @@ var NeatoDemoApp = {
           self.guiShowLoginPage();
         }).fail(function (data) {
           self.showErrorMessage("something went wrong during logout...");
-      });;
+      });
     });
     $(document).on("click", ".cmd_start", function () {
       self.startOrResume($(this).parents(".robot").attr('data-serial'));
@@ -173,6 +191,9 @@ var NeatoDemoApp = {
     });
     $(document).on("click", ".cmd_find_me", function () {
       self.findMe($(this).parents().attr('data-serial'));
+    });
+    $(document).on("click", ".cmd_maps", function () {
+      self.maps($(this).parents().attr('data-serial'));
     });
     $(document).on("click", ".cmd_schedule_monday", function () {
       self.setScheduleEveryMonday($(this).parents().parents().attr('data-serial'));
@@ -229,7 +250,8 @@ var NeatoDemoApp = {
       "<div class='model'><img src='img/botvacconnected.png'></div>" +
         "<p class='name'>"+robot.name+"</p>" +
         "<p class='robot_state'>NOT AVAILABLE</p>" +
-        "<a class='cmd_find_me'><i class='fa fa-search' aria-hidden='true'></i></a>" +
+        "<a class='cmd_find_me' title='Find me'><i class='fa fa-search' aria-hidden='true'></i></a>" +
+        "<a class='cmd_maps' title='Maps'><i class='fa fa-map' aria-hidden='true'></i></a>" +
         "<div class='cleaning-commands'>" +
           "<a class='cmd_start disabled'><i class='fa fa-play' aria-hidden='true'></i></a>" +
           "<a class='cmd_pause disabled'><i class='fa fa-pause' aria-hidden='true'></i></a>" +
@@ -275,6 +297,9 @@ var NeatoDemoApp = {
 
     if(!availableServices["findMe"]) $robotUI.find(".cmd_find_me").first().hide();
     else $robotUI.find(".cmd_find_me").first().show();
+
+    if(!availableServices["maps"]) $robotUI.find(".cmd_maps").first().hide();
+    else $robotUI.find(".cmd_maps").first().show();
   },
 
   guiDisableRobotCommands: function (serial) {
@@ -285,6 +310,7 @@ var NeatoDemoApp = {
     $robotUI.find(".cmd_stop").first().addClass('disabled');
     $robotUI.find(".cmd_send_to_base").first().addClass('disabled');
     $robotUI.find(".cmd_find_me").first().hide();
+    $robotUI.find(".cmd_maps").first().hide();
   },
 
   guiDisplayState: function (serial) {

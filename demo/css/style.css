@@ -121,6 +121,17 @@ a.btn {
       color: #fff; }
     #dashboard .robot .cmd_find_me:hover {
       opacity: 0.5; }
+  #dashboard .robot .cmd_maps {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    background-color: #2B3135;
+    padding: 20px;
+    border-radius: 50px; }
+    #dashboard .robot .cmd_maps i {
+      color: #fff; }
+    #dashboard .robot .cmd_maps:hover {
+      opacity: 0.5; }
   #dashboard .robot .model {
     text-align: center; }
   #dashboard .robot .name {
