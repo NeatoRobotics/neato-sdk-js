@@ -169,7 +169,7 @@ var NeatoDemoApp = {
       self.stopCleaning($(this).parents(".robot").attr('data-serial'));
     });
     $(document).on("click", ".cmd_send_to_base", function () {
-      self.sendToBase($(this).parents().parent().attr('data-serial'));
+      self.sendToBase($(this).parents(".robot").attr('data-serial'));
     });
     $(document).on("click", ".cmd_find_me", function () {
       self.findMe($(this).parents().attr('data-serial'));
