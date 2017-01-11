@@ -233,9 +233,9 @@ robot.maps().done(function (data) {
   // something went wrong getting robots map...
 });
 ```
-The code above retrieve the list of all the available maps and, if exists, show the first one. 
+The code above retrieves the list of all the available maps and, if exists, shows the first one. 
   
-*Note: before trying to use this call please ensure the robot support the "maps" service.*
+*Note: before trying to use this call please ensure the robot supports the "maps" service.*
 
 #### Checking robot available services
 
