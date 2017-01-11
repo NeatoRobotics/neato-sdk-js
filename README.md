@@ -210,7 +210,32 @@ robot.setSchedule({
 
 *Note: not all robot models support the eco/turbo cleaning mode. You should check the robot available services before sending those parameters.*
 
+#### Getting robot coverage maps
 
+To retrieve the list of robot cleaning coverage maps:
+
+```javascript
+robot.maps().done(function (data) {
+  if(data["maps"] && data["maps"].length > 0) {
+    // since map image urls expire, you need to use the map id
+    // to retrieve a fresh map url
+    var mapId = data["maps"][0]["id"];
+    robot.mapDetails(mapId).done(function (data) {
+      // show the map image
+      window.open(data["url"]);
+    }).fail(function (data) {
+      // something went wrong getting map details...
+    });
+  }else {
+    // No maps available yet. Complete at least one house cleaning to view maps.
+  }
+}).fail(function (data) {
+  // something went wrong getting robots map...
+});
+```
+The code above retrieve the list of all the available maps and, if exists, show the first one. 
+  
+*Note: before trying to use this call please ensure the robot support the "maps" service.*
 
 #### Checking robot available services
 
