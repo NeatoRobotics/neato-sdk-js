@@ -74,10 +74,9 @@ var NeatoDemoApp = {
 
   startHouseCleaning: function (serial) {
     this.user.getRobotBySerial(serial).startHouseCleaning({
-      category: 2,
-      mode: 1,
-      modifier: 1,
-      navigationMode: 1
+      mode: Neato.Constants.TURBO_MODE,
+      modifier: Neato.Constants.HOUSE_FREQUENCY_NORMAL,
+      navigationMode: Neato.Constants.EXTRA_CARE_OFF
     });
   },
 
