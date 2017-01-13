@@ -242,7 +242,7 @@ The code above retrieves the list of all the available maps and, if exists, show
 Different robot models and versions have different features. So before sending commands to the robot you should check if that command is available on the robot. Otherwise the robot will respond with an error. You can check the available services on the robot:
 
 ```javascript
-var availableServices = robot.state.availableCommands;
+var availableServices = robot.state.availableServices;
 ```
 
 In addition there are some utility methods you can use to check if the robot supports the services.
