@@ -1,8 +1,22 @@
-describe("Nucleo Services: maps", function() {
+describe("Robot Services: maps basic-1", function() {
   var robot = new Neato.Robot("serial", "secretKey")
     , deferredObject = "deferredObject"
     , userDeferredObject = "userDeferredObject"
-    , detailsDeferredObject = "detailsDeferredObject";
+    , detailsDeferredObject = "detailsDeferredObject"
+    , robotState = {
+        "version": 1,
+        "reqId": "77",
+        "result": "ok",
+        "data": {},
+        "state": 1,
+        "action": 0,
+        "availableServices": {
+          "maps": "basic-1"
+        }
+      };
+
+  robot.state = robotState;
+  robot.__initializeAvailableServices();
 
   beforeEach(function() {
     // mock session user

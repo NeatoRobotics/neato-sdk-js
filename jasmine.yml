@@ -16,6 +16,7 @@ src_files:
   - 'robot.js'
   - 'user.js'
   - 'robot-services/*.js'
+  - 'robot-services/**/*.js'
 
 # stylesheets
 #

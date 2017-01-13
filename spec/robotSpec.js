@@ -119,16 +119,6 @@ describe("Robot", function() {
         expect(result).toBe(deferredObject);
       });
     });
-
-    describe("#getInfo", function() {
-
-      it("calls Robot with the appropriate command", function() {
-        var result = robot.getInfo();
-
-        expect(robot.__call).toHaveBeenCalledWith({ reqId: "1", cmd: "getRobotInfo" });
-        expect(result).toBe(deferredObject);
-      });
-    });
   });
 
   describe("#__call", function() {
@@ -377,7 +367,7 @@ describe("Robot", function() {
             });
           });
 
-          it("triggers the onStateChange callback", function() {
+          it("triggers the onStateChange callback and __initializeAvailableServices method", function() {
             var testRobot
               , triggered;
 
@@ -386,10 +376,14 @@ describe("Robot", function() {
               triggered = true;
             };
 
+            spyOn(robot, '__initializeAvailableServices');
+
             robot.__setState(json);
 
             expect(testRobot).toBe(robot);
             expect(triggered).toEqual(true);
+
+            expect(robot.__initializeAvailableServices).toHaveBeenCalled();
           });
         });
 

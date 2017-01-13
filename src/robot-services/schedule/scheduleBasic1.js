@@ -1,10 +1,10 @@
-Neato.Robot.extend({
+Neato.Services.schedule_basic1 = {
   setSchedule: function(options) {
     options = options || {};
 
     var events = $.map(options, function(dayOptions, day) {
       return {
-        mode: dayOptions.mode,
+        mode: dayOptions.mode || Neato.Constants.TURBO_MODE,
         day: parseInt(day, 10),
         startTime: dayOptions.startTime
       }
@@ -35,4 +35,4 @@ Neato.Robot.extend({
     var message = { reqId: "1", cmd: "disableSchedule" };
     return this.__call(message);
   }
-});
+}

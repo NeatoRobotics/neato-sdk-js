@@ -1,19 +1,4 @@
-Neato.Robot.extend({
-  startCleaning: function(options) {
-    options = options || {};
-
-    var message = {
-      reqId: "1",
-      cmd: "startCleaning",
-      params: {
-        category: options.category,
-        mode: options.mode,
-        modifier: options.modifier,
-        navigationMode: options.navigationMode
-      }
-    };
-    return this.__call(message);
-  },
+Neato.Services.cleaning = {
 
   stopCleaning: function() {
     var message = { reqId: "1", cmd: "stopCleaning" };
@@ -34,4 +19,4 @@ Neato.Robot.extend({
     var message = { reqId: "1", cmd: "sendToBase" };
     return this.__call(message);
   }
-});
+};

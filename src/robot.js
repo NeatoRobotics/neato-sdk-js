@@ -37,11 +37,6 @@ Neato.Robot.prototype = {
     return this.__call(message);
   },
 
-  getInfo: function() {
-    var message = { reqId: "1", cmd: "getRobotInfo" };
-    return this.__call(message);
-  },
-
   __call: function(message) {
     var self = this
       , deferredObject = $.Deferred()
@@ -99,7 +94,16 @@ Neato.Robot.prototype = {
       this.state = newState;
       // trigger callback
       if (gotOnline && this.onConnected) { this.onConnected(); }
-      if (stateIsChanged && this.onStateChange) { this.onStateChange(); }
+      if (stateIsChanged && this.onStateChange) {
+        this.onStateChange();
+        this.__initializeAvailableServices();
+      }
+    }
+  },
+
+  __initializeAvailableServices: function() {
+    for(var serviceName in this.state.availableServices) {
+      this.__extend(Neato.Services[serviceName+"_"+this.state.availableServices[serviceName].replace("-","")]);
     }
   },
 
@@ -112,6 +116,14 @@ Neato.Robot.prototype = {
     return Neato.utils.clone(json, {
       only: ["result", "data"]
     });
+  },
+
+  __extend: function(obj) {
+    for (var i in obj) {
+      if (obj.hasOwnProperty(i)) {
+        this[i] = obj[i];
+      }
+    }
   }
 };
 

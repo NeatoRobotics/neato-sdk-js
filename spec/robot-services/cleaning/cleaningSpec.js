@@ -1,76 +1,72 @@
-describe("Nucleo Services: schedule", function() {
+describe("Robot Services: common cleaning operations (stop, pause, resume, dock)", function() {
   var robot = new Neato.Robot("serial", "secretKey")
-    , deferredObject = "deferredObject";
+    , deferredObject = "deferredObject"
+    , robotState = {
+        "version": 1,
+        "reqId": "77",
+        "result": "ok",
+        "data": {},
+        "state": 1,
+        "action": 0,
+        "availableServices": {
+          "houseCleaning": "basic-1"
+        }
+      };
+
+  robot.state = robotState;
+  robot.__initializeAvailableServices();
 
   beforeEach(function() {
     spyOn(robot, '__call').and.returnValue(deferredObject);
   });
 
-  describe("#setSchedule", function() {
+  describe("#stopCleaning", function() {
 
     it("calls Nucleo with the appropriate command", function() {
-      var result = robot.setSchedule({
-        0: { mode: 1, startTime: "09:05" },
-        3: { mode: 2, startTime: "14:45" }
-      });
+      var result = robot.stopCleaning();
 
       expect(robot.__call).toHaveBeenCalledWith({
         reqId: "1",
-        cmd: "setSchedule",
-        params: {
-          type: 1,
-          events: [
-            {
-              mode: 1,
-              day: 0,
-              startTime: "09:05"
-            },
-            {
-              mode: 2,
-              day: 3,
-              startTime: "14:45"
-            }
-          ]
-        }
+        cmd: "stopCleaning"
       });
       expect(result).toBe(deferredObject);
     });
   });
 
-  describe("#getSchedule", function() {
+  describe("#pauseCleaning", function() {
 
     it("calls Nucleo with the appropriate command", function() {
-      var result = robot.getSchedule();
+      var result = robot.pauseCleaning();
 
       expect(robot.__call).toHaveBeenCalledWith({
         reqId: "1",
-        cmd: "getSchedule"
+        cmd: "pauseCleaning"
       });
       expect(result).toBe(deferredObject);
     });
   });
 
-  describe("#enableSchedule", function() {
+  describe("#resumeCleaning", function() {
 
     it("calls Nucleo with the appropriate command", function() {
-      var result = robot.enableSchedule();
+      var result = robot.resumeCleaning();
 
       expect(robot.__call).toHaveBeenCalledWith({
         reqId: "1",
-        cmd: "enableSchedule"
+        cmd: "resumeCleaning"
       });
       expect(result).toBe(deferredObject);
     });
   });
 
-  describe("#disableSchedule", function() {
+  describe("#sendToBase", function() {
 
     it("calls Nucleo with the appropriate command", function() {
-      var result = robot.disableSchedule();
+      var result = robot.sendToBase();
 
       expect(robot.__call).toHaveBeenCalledWith({
         reqId: "1",
-        cmd: "disableSchedule"
+        cmd: "sendToBase"
       });
       expect(result).toBe(deferredObject);
     });

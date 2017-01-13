@@ -6,7 +6,7 @@ load 'jasmine/tasks/jasmine.rake'
 task :default => ["jasmine:ci"]
 
 # settings
-VERSION = "0.8.0"
+VERSION = "0.9.0"
 ROOT = File.dirname(__FILE__)
 SOURCE_DIR = "src"
 BUILD_DIR = "lib"

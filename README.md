@@ -167,14 +167,13 @@ Get general info doesn't require parameters:
 robot.generalInfo();
 ```
 
-Start cleaning requires parameters like the cleaning type (clean all house or spot), the cleaning mode (eco or turbo) and, in case of spot cleaning, the spot cleaning parameters (large or small area, 1x or 2x).
+Start cleaning requires parameters like the cleaning mode (eco or turbo) and, in case of spot cleaning, the spot cleaning parameters (large or small area, 1x or 2x).
 
 ```javascript
-robot.startCleaning({
-  category: 2,
-  mode: 1,
-  modifier: 1,
-  navigationMode: 1
+robot.startHouseCleaning({
+  mode: Neato.Constants.TURBO_MODE,
+  modifier: Neato.Constants.HOUSE_FREQUENCY_NORMAL,
+  navigationMode: Neato.Constants.EXTRA_CARE_OFF
 });
 ```
 
@@ -190,7 +189,7 @@ To schedule a robot clean every Monday at 3:00pm:
 
 ```javascript
 robot.setSchedule({
-  1: { mode: 1, startTime: "15:00" }
+  1: { mode: Neato.Constants.TURBO_MODE, startTime: "15:00" }
 });
 ```
 
@@ -198,13 +197,13 @@ To schedule a robot clean everyday at 3:00pm:
 
 ```javascript
 robot.setSchedule({
-  0: { mode: 1, startTime: "15:00" },
-  1: { mode: 1, startTime: "15:00" },
-  2: { mode: 1, startTime: "15:00" },
-  3: { mode: 1, startTime: "15:00" },
-  4: { mode: 1, startTime: "15:00" },
-  5: { mode: 1, startTime: "15:00" },
-  6: { mode: 1, startTime: "15:00" }
+  0: { mode: Neato.Constants.TURBO_MODE, startTime: "15:00" },
+  1: { mode: Neato.Constants.TURBO_MODE, startTime: "15:00" },
+  2: { mode: Neato.Constants.TURBO_MODE, startTime: "15:00" },
+  3: { mode: Neato.Constants.TURBO_MODE, startTime: "15:00" },
+  4: { mode: Neato.Constants.TURBO_MODE, startTime: "15:00" },
+  5: { mode: Neato.Constants.TURBO_MODE, startTime: "15:00" },
+  6: { mode: Neato.Constants.TURBO_MODE, startTime: "15:00" }
 });
 ```
 
@@ -252,6 +251,13 @@ if(availableServices["findMe"]) {
   //robot has the findMe service
 }
 ```
+The SDK does a big work to always send to the robot acceptable parameters checking its supported service. So, for simplicity, you can send commands to the robot without any parameters and the SDK fills the call with acceptable ones.
+
+```javascript
+robot.startHouseCleaning();
+```
+
+The above call send to the robot default parameters and ensure required parameters are filled and not supported parameters are discarded.
 
 ## Dependencies
 

@@ -73,7 +73,7 @@ var NeatoDemoApp = {
   },
 
   startHouseCleaning: function (serial) {
-    this.user.getRobotBySerial(serial).startCleaning({
+    this.user.getRobotBySerial(serial).startHouseCleaning({
       category: 2,
       mode: 1,
       modifier: 1,

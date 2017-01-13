@@ -130,6 +130,39 @@ describe("Neato User", function () {
     });
   });
 
+  describe("#getUserInfo", function(){
+    var user = new Neato.User();
+    user.token = "123";
+    it("calls Beehive with the correct params", function () {
+      var mock = $.Deferred();
+      spyOn(user, "__call").and.returnValue(mock);
+      user.getUserInfo();
+      expect(user.__call).toHaveBeenCalledWith("GET", "/users/me");
+    });
+  });
+
+  describe("#__getRobotMaps", function(){
+    var user = new Neato.User();
+    user.token = "123";
+    it("calls Beehive with the correct params", function () {
+      var mock = $.Deferred();
+      spyOn(user, "__call").and.returnValue(mock);
+      user.__getRobotMaps("123");
+      expect(user.__call).toHaveBeenCalledWith("GET", "/users/me/robots/123/maps");
+    });
+  });
+
+  describe("#__getMapDetails", function(){
+    var user = new Neato.User();
+    user.token = "123";
+    it("calls Beehive with the correct params", function () {
+      var mock = $.Deferred();
+      spyOn(user, "__call").and.returnValue(mock);
+      user.__getMapDetails("123", 456);
+      expect(user.__call).toHaveBeenCalledWith("GET", "/users/me/robots/123/maps/456");
+    });
+  });
+
   describe("#getRobots", function () {
     var user = new Neato.User();
 
