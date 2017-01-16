@@ -251,13 +251,27 @@ if(availableServices["findMe"]) {
   //robot has the findMe service
 }
 ```
-The SDK does a big work to always send to the robot acceptable parameters checking its supported service. So, for simplicity, you can send commands to the robot without any parameters and the SDK fills the call with acceptable ones.
+The SDK does a big work to always send to the robot acceptable parameters checking its supported service. So, for simplicity, you can send commands to the robot without any parameters and the SDK fills the call with acceptable ones (where this has sense).
 
 ```javascript
 robot.startHouseCleaning();
 ```
 
-The above call send to the robot default parameters and ensure required parameters are filled and not supported parameters are discarded.
+The above call send to the robot default parameters and ensure required parameters are filled and not supported parameters are discarded.  
+The supported services methods are automatically injected into the robot instance after the robot state is retrieved and the good part is that only the correct version of the method is injected.
+
+#### Use supported services to build your UI
+
+Supported robot services should be used to build your UI, you should hide unavailable services features and show supported ones. This is particularly true in the robot command page. Here you can benefit of some useful method of the robot class.
+
+```javascript
+robot.supportEcoTurboMode();
+robot.supportFrequency();
+robot.supportExtraCare();
+robot.supportArea();
+```
+
+Since there are different version of cleaning service you can use this method to build your UI.
 
 ## Dependencies
 
