@@ -76,4 +76,16 @@ describe("Robot Services: houseCleaning basic-2", function() {
       expect(result).toBe(deferredObject);
     });
   });
+
+  it("it support eco/turbo mode", function() {
+    expect(robot.supportEcoTurboMode()).toBe(true);
+  });
+
+  it("it support cleaning frequency", function() {
+    expect(robot.supportFrequency()).toBe(true);
+  });
+
+  it("it support extra care", function() {
+    expect(robot.supportExtraCare()).toBe(true);
+  });
 });

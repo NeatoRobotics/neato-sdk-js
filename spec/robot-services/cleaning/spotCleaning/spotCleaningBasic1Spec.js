@@ -80,4 +80,20 @@ describe("Robot Services: spotCleaning basic-1", function() {
       expect(result).toBe(deferredObject);
     });
   });
+
+  it("it support eco/turbo mode", function() {
+    expect(robot.supportEcoTurboMode()).toBe(true);
+  });
+
+  it("it support cleaning frequency", function() {
+    expect(robot.supportFrequency()).toBe(true);
+  });
+
+  it("it doesn't support extra care", function() {
+    expect(robot.supportExtraCare()).toBe(false);
+  });
+
+  it("it support cleaning area", function() {
+    expect(robot.supportArea()).toBe(true);
+  });
 });

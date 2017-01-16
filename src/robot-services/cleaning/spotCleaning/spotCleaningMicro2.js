@@ -13,7 +13,18 @@ Neato.Services.spotCleaning_micro2 = {
     };
     return this.__call(message);
   },
-
+  supportEcoTurboMode: function() {
+    return false;
+  },
+  supportFrequency: function() {
+    return false;
+  },
+  supportExtraCare: function() {
+    return true;
+  },
+  supportArea: function() {
+    return false;
+  },
   stopCleaning: Neato.Services.cleaning.stopCleaning,
   pauseCleaning: Neato.Services.cleaning.pauseCleaning,
   resumeCleaning: Neato.Services.cleaning.resumeCleaning,

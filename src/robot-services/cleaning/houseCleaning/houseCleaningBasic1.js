@@ -15,6 +15,16 @@ Neato.Services.houseCleaning_basic1 = {
     return this.__call(message);
   },
 
+  supportEcoTurboMode: function() {
+    return true;
+  },
+  supportFrequency: function() {
+    return true;
+  },
+  supportExtraCare: function() {
+    return false;
+  },
+
   stopCleaning: Neato.Services.cleaning.stopCleaning,
   pauseCleaning: Neato.Services.cleaning.pauseCleaning,
   resumeCleaning: Neato.Services.cleaning.resumeCleaning,
