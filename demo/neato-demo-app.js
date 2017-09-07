@@ -246,7 +246,7 @@ var NeatoDemoApp = {
 
   guiRobotTemplate: function(robot) {
     return "<div class='robot grid-40 prefix-5 suffix-5' data-serial='"+robot.serial+"' data-secret_key='"+robot.secret_key+"'>" +
-      "<div class='model'><img src='img/botvacconnected.png'></div>" +
+      "<div class='model'><img src='img/"+this.getRobotImage(robot.model)+"'></div>" +
         "<p class='name'>"+robot.name+"</p>" +
         "<p class='robot_state'>NOT AVAILABLE</p>" +
         "<a class='cmd_find_me' title='Find me'><i class='fa fa-search' aria-hidden='true'></i></a>" +
@@ -263,6 +263,14 @@ var NeatoDemoApp = {
           "<a class='btn cmd_schedule_monday'>Monday at 3:00 pm</a>" +
         "</div>" +
       "</div>";
+  },
+
+  getRobotImage: function(model) {
+    if(model.toLowerCase() == "botvacconnected") return "robot_image_botvacconnected.png";
+    else if(model.toLowerCase() == "botvacd3connected") return "robot_image_botvacd3connected.png";
+    else if(model.toLowerCase() == "botvacd5connected") return "robot_image_botvacd5connected.png";
+    else if(model.toLowerCase() == "botvacd7connected") return "robot_image_botvacd7connected.png";
+    else return "robot_empty.png";
   },
 
   guiShowAuthenticationErrorUI: function (message) {
