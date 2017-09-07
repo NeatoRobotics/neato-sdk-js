@@ -197,6 +197,20 @@ describe("Neato User", function () {
         '"firmware": "2.2.2-312",'+
         '"created_at": "2014-01-02T12:00:00Z",'+
         '"linked_at": "2014-01-02T12:00:00Z"'+
+        '},'+
+        '{'+
+        '"serial": "robot3",'+
+        '"prefix": "NSN",'+
+        '"name": "Robot 2",'+
+        '"model": "botvac-80",'+
+        '"secret_key": "04a0fbe6b1f..2572e",'+
+        '"purchased_at": "2014-01-02T12:00:00Z",'+
+        '"proof_of_purchase_url": "https://neatorobotics.s3.amazonaws.com/proof_of_purchases/3dfb187b4033ba7/8dbba2a261eb7f2c0/receipt-2.png",'+
+        '"proof_of_purchase_generated_at": "2014-01-03T12:00:02Z",'+
+        '"mac_address": "12-34-56-78-cd",'+
+        '"firmware": "2.2.2-312",'+
+        '"created_at": "2014-01-02T12:00:00Z",'+
+        '"linked_at": null'+
         '}'+
         ']'
       });

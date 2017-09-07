@@ -34,11 +34,14 @@ Neato.User.prototype = {
       .done(function (data) {
         self.robots = [];
         for (var i = 0; i < data.length; i++) {
-          self.robots.push(new Neato.Robot(data[i].serial, data[i].secret_key,
-            {
-              name: data[i].name,
-              model: data[i].model
-            }));
+          // only linked robots
+          if (data[i].linked_at) {
+            self.robots.push(new Neato.Robot(data[i].serial, data[i].secret_key,
+              {
+                name: data[i].name,
+                model: data[i].model
+              }));
+          }
         }
         deferredObject.resolve.call(self, self.robots);
       })
