@@ -15,7 +15,7 @@ To boost your development, you can also check the *sample application*.
  - Link the robot to the user account via the official Neato App
 
 ## Demo
-An example app can be found in the [demo](/demo) folder.
+An example app can be found in the [demo](https://github.com/NeatoRobotics/neato-sdk-js/tree/master/demo) folder.
 
 For your convenience, an online demo can be seen on the [Neato Developer Network](https://developers.neatorobotics.com) at the address:
 [https://developers.neatorobotics.com/demo/sdk-js](https://developers.neatorobotics.com/demo/sdk-js)
