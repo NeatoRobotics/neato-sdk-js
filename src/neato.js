@@ -7,6 +7,7 @@ var Neato = {
   Constants:{
     CLEAN_HOUSE_MODE : 2,
     CLEAN_SPOT_MODE : 3,
+    CLEAN_MAP_MODE : 4,
     MANUAL_CLEANING_MODE : 1,
     ECO_MODE : 1,
     TURBO_MODE : 2,
