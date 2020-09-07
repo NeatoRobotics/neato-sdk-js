@@ -24,6 +24,7 @@ GEM
 
 PLATFORMS
   ruby
+  x64-mingw32
 
 DEPENDENCIES
   jasmine
@@ -31,4 +32,4 @@ DEPENDENCIES
   uglifier
 
 BUNDLED WITH
-   1.16.2
+   1.17.2
