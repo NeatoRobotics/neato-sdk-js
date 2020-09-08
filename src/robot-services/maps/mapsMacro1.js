@@ -4,5 +4,8 @@ Neato.Services.maps_macro1 = {
   },
   mapDetails: function(mapId) {
     return Neato.user.__getMapDetails(this.serial, mapId);
+  },
+  persistentMaps: function () {
+    return Neato.user.__getRobotPersistentMaps(this.serial);
   }
 }

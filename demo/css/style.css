@@ -132,6 +132,14 @@ a.btn {
       color: #fff; }
     #dashboard .robot .cmd_maps:hover {
       opacity: 0.5; }
+
+    #dashboard .robot .cleaning_mode {
+        position: absolute;
+        left: 10px;
+        top: 210px;
+        border-radius: 50px;
+    }
+
   #dashboard .robot .model {
     text-align: center; }
   #dashboard .robot .name {

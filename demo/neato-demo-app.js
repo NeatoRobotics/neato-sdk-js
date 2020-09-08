@@ -73,11 +73,21 @@ var NeatoDemoApp = {
   },
 
   startHouseCleaning: function (serial) {
-    this.user.getRobotBySerial(serial).startHouseCleaning({
+    let cleaningOptions = {
       mode: Neato.Constants.TURBO_MODE,
       modifier: Neato.Constants.HOUSE_FREQUENCY_NORMAL,
       navigationMode: Neato.Constants.EXTRA_CARE_OFF
-    });
+    };
+
+    const zoneSelect = $("#zones_select");
+
+    if (zoneSelect.is(":visible")) {
+      const zoneId = zoneSelect.val();
+
+      cleaningOptions.boundaryId = zoneId;
+    }
+
+    this.user.getRobotBySerial(serial).startHouseCleaning(cleaningOptions);
   },
 
   pauseCleaning: function (serial) {
@@ -115,6 +125,77 @@ var NeatoDemoApp = {
       }
     }).fail(function (data) {
       self.showErrorMessage("something went wrong getting robots map....");
+    });
+  },
+
+  getPersistentMaps: function (serial) {
+    const self = this;
+
+    const robot = self.user.getRobotBySerial(serial);
+
+    robot.persistentMaps().done(function (maps) {
+      if (maps.length > 0) {
+        const select = document.getElementById("persistent_maps_select");
+        select.innerHTML = "";
+
+        maps.forEach(map => {
+          var mapId = map["id"];
+          var mapName = map["name"];
+
+          if (!mapName) {
+            mapName = mapId;
+          }
+
+          const option = document.createElement("option");
+          option.text = mapName;
+          option.value = mapId;
+
+          select.appendChild(option);
+        });
+
+        $("#persistent_maps_select").show();
+
+        self.getZones(serial, maps[0].id);
+      } else {
+        alert("No floor plans available yet.")
+      }
+    }).fail(function (data) {
+      self.showErrorMessage("something went wrong getting floor plans....");
+    });
+  },
+
+  getZones: function (serial, mapId) {
+    const self = this;
+
+    const robot = self.user.getRobotBySerial(serial);
+
+    robot.getMapBoundaries(mapId).done(function (result, zones) {
+      const boundaries = zones.boundaries;
+
+      if (boundaries.length > 0) {
+        const select = document.getElementById("zones_select");
+        select.innerHTML = "";
+
+        boundaries.forEach(boundary => {
+          var boundaryName = boundary["name"];
+
+          if (boundaryName) {
+            var boundaryId = boundary["id"];
+
+            const option = document.createElement("option");
+            option.text = boundaryName;
+            option.value = boundaryId;
+
+            select.appendChild(option);
+          }
+        });
+
+        $("#zones_select").show();
+      } else {
+        alert("No saved zones available yet.")
+      }
+    }).fail(function (data) {
+      self.showErrorMessage("something went wrong getting zones....");
     });
   },
 
@@ -200,6 +281,16 @@ var NeatoDemoApp = {
     $(document).on("click", ".cmd_schedule_every_day", function () {
       self.setScheduleEveryDay($(this).parents().parents().attr('data-serial'));
     });
+    $(document).on("click", "#cleaning_mode_entire_floor", function () {
+      $("#persistent_maps_select").hide();
+      $("#zones_select").hide();
+    });
+    $(document).on("click", "#cleaning_mode_zone", function () {
+      self.getPersistentMaps($(this).parents().parents().attr('data-serial'));
+    });
+    $(document).on("click", "#persistent_maps_select", function () {
+      self.getZones($(this).parents().parents().attr('data-serial'));
+    });
   },
 
   guiShowLoginPage: function () {
@@ -251,6 +342,14 @@ var NeatoDemoApp = {
         "<p class='robot_state'>NOT AVAILABLE</p>" +
         "<a class='cmd_find_me' title='Find me'><i class='fa fa-search' aria-hidden='true'></i></a>" +
         "<a class='cmd_maps' title='Maps'><i class='fa fa-map' aria-hidden='true'></i></a>" +
+        "<div class='cleaning_mode'>" +
+          "<label for='cleaning_mode_entire_floor'>Entire floor</label><input type='radio' id='cleaning_mode_entire_floor' name='cleaning_mode' value='cleaning_mode_entire_floor' checked>" +
+          "<label for='cleaning_mode_zone'>Zone</label><input type='radio' id='cleaning_mode_zone' name='cleaning_mode' value='cleaning_mode_zone'>" +
+          "<select id='persistent_maps_select' style='display: none;'>" +
+          "</select>" +
+          "<select id='zones_select' style='display: none;'>" +
+          "</select>" +
+        "</div>" +
         "<div class='cleaning-commands'>" +
           "<a class='cmd_start disabled'><i class='fa fa-play' aria-hidden='true'></i></a>" +
           "<a class='cmd_pause disabled'><i class='fa fa-pause' aria-hidden='true'></i></a>" +

@@ -32,6 +32,18 @@ Neato.Robot.prototype = {
     this.__disconnect();
   },
 
+  getMapBoundaries: function (mapId) {
+    var message = {
+      reqId: "77",
+      cmd: "getMapBoundaries",
+      params: {
+        mapId: mapId
+      }
+    };
+
+    return this.__call(message);
+  },
+
   getState: function() {
     var message = { reqId: "1", cmd: "getRobotState" };
     return this.__call(message);

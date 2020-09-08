@@ -12,6 +12,12 @@ Neato.Services.houseCleaning_basic4 = {
         navigationMode: options.navigationMode || Neato.Constants.EXTRA_CARE_OFF
       }
     };
+
+    if (options.boundaryId) {
+      message.params.category = Neato.Constants.CLEAN_MAP_MODE;
+      message.params.boundaryId = options.boundaryId;
+    }
+
     return this.__call(message);
   },
   supportEcoTurboMode: function() {

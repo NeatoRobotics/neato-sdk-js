@@ -26,6 +26,10 @@ Neato.User.prototype = {
     return this.__call("GET", "/users/me/robots/"+serial+"/maps/"+mapId);
   },
 
+  __getRobotPersistentMaps: function (serial) {
+    return this.__call("GET", "/users/me/robots/" + serial + "/persistent_maps");
+  },
+
   getRobots: function () {
     var self = this;
     var deferredObject = $.Deferred();

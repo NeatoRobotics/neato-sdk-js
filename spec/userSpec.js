@@ -163,6 +163,17 @@ describe("Neato User", function () {
     });
   });
 
+  describe("#__getRobotPersistentMaps", function () {
+    var user = new Neato.User();
+    user.token = "123";
+    it("calls Beehive with the correct params", function () {
+      var mock = $.Deferred();
+      spyOn(user, "__call").and.returnValue(mock);
+      user.__getRobotPersistentMaps("123");
+      expect(user.__call).toHaveBeenCalledWith("GET", "/users/me/robots/123/persistent_maps");
+    });
+  });
+
   describe("#getRobots", function () {
     var user = new Neato.User();
 
